@@ -1,4 +1,5 @@
 import { errNameNotSet } from "../utils/constants";
+import merge from "lodash.merge"
 
 export type Token<T = any, R = any> = {
   // T=trait, R=input type of node / ast
@@ -31,5 +32,5 @@ export function makeToken<T = any, R = any>(
       return parse(t, values);
     },
   };
-  return Object.assign(defaults, options);
+  return merge(defaults, options);
 }

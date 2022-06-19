@@ -2,6 +2,7 @@ import { h } from "hastscript";
 import { HResult } from "hastscript/lib/core";
 import { Props } from "../traits/prop";
 import { errNameNotSet, errTemplateNotSet } from "../utils/constants";
+import merge from "lodash.merge"
 
 export type Component = {
   name: {
@@ -21,5 +22,5 @@ export function makeComponent(options: Partial<Component> | any): Component {
       return <div>{errTemplateNotSet.message}</div>;
     },
   };
-  return Object.assign(defaults, options);
+  return merge(defaults, options);
 }

@@ -24,6 +24,7 @@
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "types": [
+      "@types/lodash.merge",
       "@types/ejs",
       "@types/node",
       "@types/unist",

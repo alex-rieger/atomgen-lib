@@ -9,6 +9,8 @@ import {
   errNameNotSet,
 } from "../utils/constants";
 import { Component } from "./component";
+import { Parsed, RecursivePartial } from "../utils/types";
+import merge from "lodash.merge"
 
 export type Target = {
   name: {
@@ -20,16 +22,16 @@ export type Target = {
   };
   stringifyOptions: Options;
   handler: {
-    print(prop: Prop, component: Component): string;
+    print(prop: Parsed<Prop>, component: Component): string;
     slot(node: Element, component: Component): Element;
-    show(node: Element, prop: Prop, component: Component): Element;
+    show(node: Element, prop: Parsed<Prop>, component: Component): Element;
     prop: {
       attr(attr: string, component: Component): string;
       value(value: Prop, component: Component): string;
     };
     className: {
       attr(attr: string, component: Component): string;
-      value(values: ClassNames, component: Component): string;
+      value(values: Parsed<ClassNames>, component: Component): string;
     };
   };
   template: {
@@ -39,7 +41,7 @@ export type Target = {
   }
 };
 
-export function makeTarget(options?: Partial<Target> | any): Target {
+export function makeTarget(options: RecursivePartial<Target>): Target {
   const defaults: Target = {
     name: {
       internal: errNameNotSet.message,
@@ -91,5 +93,5 @@ export function makeTarget(options?: Partial<Target> | any): Target {
       }
     }
   };
-  return Object.assign(defaults, options);
+  return merge(defaults, options)
 }

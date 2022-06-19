@@ -13,22 +13,28 @@ export function componentTranspile({ target }: { target: Target }) {
     visit(ast, "text", function (node) {
       debug('visiting text nodes')
       if (tokenPrintBinding.matches(node)) {
-        debug('matches print binding', node)
+        debug(`found print binding=${node.value}`)
         const prop = tokenPrintBinding.parse(node.value)
         const newValue = target.handler.print(prop, component)
         node.value = newValue
-        debug(`applying print binding handler`, prop, newValue)
+        debug(`applying print binding handler`, 'prop=', prop, 'new value=', newValue)
       }
     });
     visit(ast, "element", function (node) {
       if (tokenSlotBinding.matches(node)) {
-        Object.assign(node, target.handler.slot(node, component))
+        debug(`found slot binding=`, node)
+        const newValue = target.handler.slot(node, component)
+        Object.assign(node, newValue)
+        debug(`applying slot handler`, newValue)
       } else if (tokenShowBinding.matches(node)) {
-        console.log('todo handle show')
+        debug(`found show binding=`, node)
+        debug(`todo: applying show handler`, node)
       }
       if (node.properties) {
+        debug(`node has properties=`, node.properties)
         let properties = {}
         Object.entries(node.properties).forEach(function (p) {
+          debug(`handling property=`, p)
           const attr = p[0]
           const val = normalizeHtmlPropertyValue(p[1])
           let result = {}

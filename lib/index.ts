@@ -35,7 +35,7 @@ export { makeComponent } from "./factories/component";
 export { makeTarget } from "./factories/target";
 
 // targets
-export { default as targetVue2 } from "./impl/targets/vue2";
+export { default as targetVue2 } from "./impl/vue2";
 
 
 // traits

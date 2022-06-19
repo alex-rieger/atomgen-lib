@@ -3,6 +3,7 @@ import { Element } from "hastscript/lib/core";
 import { makeToken } from "../factories/token";
 import { ClassName } from "../traits/className";
 import { Prop } from "../traits/prop";
+import { Parsed } from "./types";
 
 export const boxedTypeProp = "__prop__";
 export const boxedTypeClassName = "__classname__";
@@ -13,7 +14,7 @@ export const errExtensionNotSet = new Error("ExtensionNotSet");
 export const errDirnameNotSet = new Error("DirnameNotSet");
 export const errMethodNotAllowed = new Error("MethodNotAllowed");
 
-export const tokenPropBinding = makeToken<Prop, string | number>("@prop@", {
+export const tokenPropBinding = makeToken<Parsed<Prop>, string | number>("@prop@", {
   matches(value) {
     const v = typeof value === "string" ? value : String(value);
     return v.startsWith("@prop@");
@@ -29,7 +30,7 @@ export const tokenClassNameBinding = makeToken<ClassName, string>(
   }
 );
 
-export const tokenPrintBinding = makeToken<Prop, Text>("@print@", {
+export const tokenPrintBinding = makeToken<Parsed<Prop>, Text>("@print@", {
   matches({ value }) {
     return value.startsWith("@print@");
   },
