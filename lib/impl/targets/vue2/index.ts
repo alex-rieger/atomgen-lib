@@ -1,5 +1,5 @@
 import { readFileSync } from "fs";
-import { makeTarget } from "../../../lib";
+import { makeTarget } from "../../../factories/target";
 
 export default makeTarget({
   name: {

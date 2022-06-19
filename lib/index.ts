@@ -34,6 +34,10 @@ export { h } from "hastscript";
 export { makeComponent } from "./factories/component";
 export { makeTarget } from "./factories/target";
 
+// targets
+export { default as targetVue2 } from "./impl/targets/vue2";
+
+
 // traits
 export { bind } from "./traits/bind";
 export { className } from "./traits/className";
