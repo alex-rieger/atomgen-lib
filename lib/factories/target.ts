@@ -10,7 +10,7 @@ import {
 } from "../utils/constants";
 import { Component } from "./component";
 import { Parsed, RecursivePartial } from "../utils/types";
-import merge from "lodash.merge"
+import merge from "lodash.merge";
 
 export type Target = {
   name: {
@@ -36,9 +36,9 @@ export type Target = {
   };
   template: {
     file(): string;
-    funcMap(): Record<string,Function>;
+    funcMap(): Record<string, Function>;
     options(): EjsOptions;
-  }
+  };
 };
 
 export function makeTarget(options: RecursivePartial<Target>): Target {
@@ -83,15 +83,15 @@ export function makeTarget(options: RecursivePartial<Target>): Target {
     },
     template: {
       file() {
-        return ""
+        return "";
       },
       funcMap() {
-        return {}
+        return {};
       },
       options() {
-        return {}
-      }
-    }
+        return {};
+      },
+    },
   };
-  return merge(defaults, options)
+  return merge(defaults, options);
 }

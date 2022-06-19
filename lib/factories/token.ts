@@ -1,5 +1,5 @@
 import { errNameNotSet } from "../utils/constants";
-import merge from "lodash.merge"
+import merge from "lodash.merge";
 
 export type Token<T = any, R = any> = {
   // T=trait, R=input type of node / ast

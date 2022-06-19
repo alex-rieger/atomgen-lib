@@ -14,12 +14,15 @@ export const errExtensionNotSet = new Error("ExtensionNotSet");
 export const errDirnameNotSet = new Error("DirnameNotSet");
 export const errMethodNotAllowed = new Error("MethodNotAllowed");
 
-export const tokenPropBinding = makeToken<Parsed<Prop>, string | number>("@prop@", {
-  matches(value) {
-    const v = typeof value === "string" ? value : String(value);
-    return v.startsWith("@prop@");
-  },
-});
+export const tokenPropBinding = makeToken<Parsed<Prop>, string | number>(
+  "@prop@",
+  {
+    matches(value) {
+      const v = typeof value === "string" ? value : String(value);
+      return v.startsWith("@prop@");
+    },
+  }
+);
 
 export const tokenClassNameBinding = makeToken<ClassName, string>(
   "@classname@",
@@ -45,10 +48,10 @@ export const tokenSlotBinding = makeToken<Element, Element>("", {
   },
   parse() {
     throw errMethodNotAllowed;
-  }
-})
+  },
+});
 
-export const tokenShowBinding = makeToken<Prop, Element>("@show@", {
+export const tokenShowBinding = makeToken<Parsed<Prop>, Element>("@show@", {
   matches({ properties }) {
     if (properties) {
       return Object.keys(properties).some((p) => p.startsWith("@show@"));

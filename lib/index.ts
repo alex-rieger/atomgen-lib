@@ -9,17 +9,21 @@ import { ExtendedVFile } from "./utils/types";
 
 // public api exported here
 export async function transpile(component: Component, target: Target) {
-  const processorResult = await unified()
+  const processorResult = (await unified()
     .use(componentParse)
     .use(componentTranspile, { target })
     .use(rehypeStringify, target.stringifyOptions)
-    .process({ component }) as ExtendedVFile;
+    .process({ component })) as ExtendedVFile;
 
-  const fileContents = ejs.render(target.template.file(), {
-    component: processorResult.component,
-    template: processorResult.value,
-    ...target.template.funcMap(),
-  }, target.template.options())
+  const fileContents = ejs.render(
+    target.template.file(),
+    {
+      component: processorResult.component,
+      template: processorResult.value,
+      ...target.template.funcMap(),
+    },
+    target.template.options()
+  );
 
   return {
     processorResult,
@@ -36,7 +40,6 @@ export { makeTarget } from "./factories/target";
 
 // targets
 export { default as targetVue2 } from "./impl/vue2";
-
 
 // traits
 export { bind } from "./traits/bind";

@@ -2,7 +2,7 @@ import { h } from "hastscript";
 import { HResult } from "hastscript/lib/core";
 import { Props } from "../traits/prop";
 import { errNameNotSet, errTemplateNotSet } from "../utils/constants";
-import merge from "lodash.merge"
+import merge from "lodash.merge";
 
 export type Component = {
   name: {

@@ -4,10 +4,11 @@ import { Component } from "../factories/component";
 import { Conditional } from "../factories/conditional";
 
 export type RecursivePartial<T> = {
-  [P in keyof T]?:
-    T[P] extends (infer U)[] ? RecursivePartial<U>[] :
-    T[P] extends object ? RecursivePartial<T[P]> :
-    T[P];
+  [P in keyof T]?: T[P] extends (infer U)[]
+    ? RecursivePartial<U>[]
+    : T[P] extends object
+    ? RecursivePartial<T[P]>
+    : T[P];
 };
 
 export type HtmlPropertyValue =
@@ -23,4 +24,4 @@ export type ExtendedVFile = VFile & {
 };
 
 // convenience type
-export type Parsed<T> = Boxed<T|Conditional<T>>
+export type Parsed<T> = Boxed<Conditional<T>>;
