@@ -23,7 +23,13 @@
     "esModuleInterop": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
-    "types": ["@types/node", "@types/unist", "@types/hast", "@types/jest"]
+    "types": [
+      "@types/ejs",
+      "@types/node",
+      "@types/unist",
+      "@types/hast",
+      "@types/jest"
+    ]
     // typescript options here
   }
 }

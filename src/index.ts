@@ -1,6 +1,8 @@
-import { makeTarget, transpile } from "../lib";
+import { transpile } from "../lib";
+import vueTarget from "./targets/vue"
 import bootstrapAccordionItem from "./components/bootstrapAccordionItem";
 
-const componentResult = await transpile(bootstrapAccordionItem, makeTarget());
+const { processorResult, fileContents } = await transpile(bootstrapAccordionItem, vueTarget)
 
-console.log(componentResult);
+console.log(processorResult)
+console.log(fileContents)

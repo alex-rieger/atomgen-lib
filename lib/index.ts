@@ -1,9 +1,11 @@
+import ejs from "ejs";
 import rehypeStringify from "rehype-stringify";
 import { unified } from "unified";
 import { Component } from "./factories/component";
 import { Target } from "./factories/target";
 import { componentParse } from "./unified/componentParse";
 import { componentTranspile } from "./unified/componentTranspile";
+import { ExtendedVFile } from "./utils/types";
 
 // public api exported here
 export async function transpile(component: Component, target: Target) {
@@ -11,8 +13,18 @@ export async function transpile(component: Component, target: Target) {
     .use(componentParse)
     .use(componentTranspile, { target })
     .use(rehypeStringify, target.stringifyOptions)
-    .process({ component });
-  return processorResult;
+    .process({ component }) as ExtendedVFile;
+
+  const fileContents = ejs.render(target.template.file(), {
+    component: processorResult.component,
+    template: processorResult.value,
+    ...target.template.funcMap(),
+  }, target.template.options())
+
+  return {
+    processorResult,
+    fileContents,
+  };
 }
 
 // deps
