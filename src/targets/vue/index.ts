@@ -1,7 +1,6 @@
 import { readFileSync } from "fs";
 import { makeTarget } from "../../../lib";
 
-
 export default makeTarget({
   name: {
     internal: "vue-2-javascript",

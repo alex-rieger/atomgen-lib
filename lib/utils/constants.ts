@@ -11,6 +11,7 @@ export const errNameNotSet = new Error("NameNotSet");
 export const errTemplateNotSet = new Error("TemplateNotSet");
 export const errExtensionNotSet = new Error("ExtensionNotSet");
 export const errDirnameNotSet = new Error("DirnameNotSet");
+export const errMethodNotAllowed = new Error("MethodNotAllowed");
 
 export const tokenPropBinding = makeToken<Prop, string | number>("@prop@", {
   matches(value) {
@@ -33,6 +34,18 @@ export const tokenPrintBinding = makeToken<Prop, Text>("@print@", {
     return value.startsWith("@print@");
   },
 });
+
+export const tokenSlotBinding = makeToken<Element, Element>("", {
+  matches({ tagName }) {
+    return tagName === "slot";
+  },
+  serialize() {
+    throw errMethodNotAllowed;
+  },
+  parse() {
+    throw errMethodNotAllowed;
+  }
+})
 
 export const tokenShowBinding = makeToken<Prop, Element>("@show@", {
   matches({ properties }) {
