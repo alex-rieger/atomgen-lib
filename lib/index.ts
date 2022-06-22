@@ -15,7 +15,7 @@ export async function transpile(component: Component, target: Target) {
     .use(rehypeStringify, target.stringifyOptions)
     .process({ component })) as ExtendedVFile;
 
-  const fileContents = ejs.render(
+  const fileContents = await ejs.render(
     target.template.file(),
     {
       component: processorResult.component,
@@ -40,6 +40,7 @@ export { makeTarget } from "./factories/target";
 
 // targets
 export { default as targetVue2 } from "./impl/vue2";
+export { default as targetNunjucks } from "./impl/nunjucks";
 
 // traits
 export { bind } from "./traits/bind";

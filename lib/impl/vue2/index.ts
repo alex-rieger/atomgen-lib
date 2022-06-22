@@ -1,36 +1,25 @@
 import { readFileSync } from "fs";
 import { Element } from "hastscript/lib/core";
-import { Condition } from "../../factories/conditional";
 import { makeTarget } from "../../factories/target";
 import { Prop } from "../../traits/prop";
+import { getPropsList, propTypeToConstructor, propDefaultToValue, toConditionString } from "../../utils/templateUtils";
 import { Parsed } from "../../utils/types";
 
-function toConditionString(condition: Condition, { name }: Prop) {
-  switch (condition) {
-    case Condition.Always:
-      return `true === true`;
-    case Condition.True:
-      return `${name}`;
-    case Condition.TrueStrict:
-      return `${name} === true`;
-    case Condition.False:
-      return `!${name}`;
-    case Condition.FalseStrict:
-      return `${name} === false`;
-    default:
-      ``;
-  }
-}
 
 export default makeTarget({
   name: {
     internal: "vue-2-javascript",
+  },
+  fs: {
+    dirname: "vue-2-javascript",
+    extension: "vue",
   },
   handler: {
     print(prop: Parsed<Prop>) {
       return `{{ ${prop.name} }}`;
     },
     show(node: Element, prop: Parsed<Prop>) {
+
       node.properties = {
         "v-if": toConditionString(prop.__condition, prop),
       };
@@ -54,7 +43,11 @@ export default makeTarget({
       ).toString();
     },
     funcMap() {
-      return {};
+      return {
+        getPropsList,
+        propTypeToConstructor,
+        propDefaultToValue,
+      };
     },
     options() {
       return {};
